@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:buscafarma/backend/model/categoria.dart';
 import 'package:buscafarma/backend/request/credencial.dart';
 import 'package:buscafarma/get_it_setup.dart';
 import 'package:buscafarma/services/auth_service.dart';
+import 'package:buscafarma/services/categoria_service.dart';
 import 'package:buscafarma/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -39,29 +41,41 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _auth = GetIt.I<AuthService>();
+  final _categoriaService = GetIt.I<CategoriaService>();
   int _counter = 0;
 
   @override
   void initState() {
     super.initState();
-    _auth.addListener(_onAuthChanged);
+    _auth.addListener(_onServiceChanged);
+    _categoriaService.addListener(_onServiceChanged);
   }
 
   @override
   void dispose() {
-    _auth.removeListener(_onAuthChanged);
+    _auth.removeListener(_onServiceChanged);
+    _categoriaService.removeListener(_onServiceChanged);
     super.dispose();
   }
 
-  _onAuthChanged() {
+  _onServiceChanged() {
     setState(() {});
   }
 
-  void _incrementCounter() {
+  Future<void> _incrementCounter() async {
     final auth = GetIt.I<LoginService>();
     auth
         .autentica(Credencial(login: "45342868807", senha: "batata"))
         .catchError((e) => log("erro: ${e.message}"));
+
+    Future.delayed(Duration(seconds: 5), () {
+      final authService = GetIt.I<AuthService>();
+
+      if (authService.isLogado) {
+        log("calling /categoria/list");
+        GetIt.I<CategoriaService>().listaCategorias();
+      }
+    });
 
     setState(() {
       _counter++;
@@ -70,6 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var categorias = _categoriaService.categorias;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -79,7 +95,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Text("Esta Autenticado: ${_auth.isLogado}"),
-            Text("Token: ${_auth.token}")
+            Text("Token: ${_auth.token}"),
+            SizedBox(
+              height: 15,
+            ),
+            Expanded(
+              child: ListView.builder(
+                  itemBuilder: (context, index) => categorias.length > index
+                      ? Text(
+                          "${categorias[index].id}: ${categorias[index].descricao}")
+                      : null),
+            ),
           ],
         ),
       ),
