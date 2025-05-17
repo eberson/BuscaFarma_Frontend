@@ -1,22 +1,17 @@
 import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
 
-class AuthProvider extends ChangeNotifier {
-  String _token = "";
+class Auth {
+  final ValueNotifier<String> _tokenNotifier = ValueNotifier("");
 
   void setToken(String token) {
-    _token = token;
-    notifyListeners();
+    _tokenNotifier.value = token;
   }
 
   void logout() {
-    _token = "";
-    notifyListeners();
+    _tokenNotifier.value = "";
   }
 
-  bool get isLogado => _token.isNotEmpty;
-  String get token => _token;
-
-  static ChangeNotifierProvider<AuthProvider> create() =>
-      ChangeNotifierProvider(create: (_) => AuthProvider());
+  bool get isLogado => _tokenNotifier.value.isNotEmpty;
+  String get token => _tokenNotifier.value;
+  ValueNotifier<String> get tokenNotifier => _tokenNotifier;
 }

@@ -1,17 +1,18 @@
 import 'package:buscafarma/providers/auth.dart';
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 
 class TokenInterceptor extends Interceptor {
-  final AuthProvider auth;
-
-  TokenInterceptor(this.auth);
-
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final token = auth.token;
+    final auth = GetIt.I<Auth>();
 
-    if (token.isNotEmpty) {
-      options.headers["Authorization"] = "Bearer $token";
+    if (auth.isLogado) {
+      final token = auth.token;
+
+      if (token.isNotEmpty) {
+        options.headers["Authorization"] = "Bearer $token";
+      }
     }
 
     super.onRequest(options, handler);

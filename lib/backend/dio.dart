@@ -1,3 +1,4 @@
+import 'package:buscafarma/backend/token_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -13,6 +14,8 @@ Dio buildDio() {
       compact: true,
     ),
   );
+
+  dio.interceptors.add(TokenInterceptor());
 
   return dio;
 }

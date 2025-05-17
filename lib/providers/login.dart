@@ -3,26 +3,21 @@ import 'package:buscafarma/backend/error_handler.dart';
 import 'package:buscafarma/backend/request/credencial.dart';
 import 'package:buscafarma/providers/auth.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
 
-class UserProvider extends ChangeNotifier {
-  final API api;
-  final AuthProvider auth;
-
-  UserProvider({required this.api, required this.auth});
-
+class Login {
   Future<void> autentica(Credencial credencial) async {
     try {
-      var token = await api.autentica(credencial);
-      auth.setToken(token);
+      final token = await API.instance.autentica(credencial);
+
+      final authProvider = GetIt.I<Auth>();
+      authProvider.setToken(token);
     } catch (e) {
       if (e is DioException) {
         throw ErrorHandler.dioException(error: e);
       }
 
       throw ErrorHandler.otherException();
-    } finally {
-      notifyListeners();
     }
   }
 }

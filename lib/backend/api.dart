@@ -1,6 +1,6 @@
-import 'package:buscafarma/backend/dio.dart';
 import 'package:buscafarma/backend/request/credencial.dart';
 import 'package:dio/dio.dart';
+import 'package:get_it/get_it.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api.g.dart';
@@ -15,6 +15,6 @@ abstract class API {
   static API? _instance;
 
   static API get instance {
-    return _instance ??= API(buildDio());
+    return _instance ??= API(GetIt.I<Dio>());
   }
 }
