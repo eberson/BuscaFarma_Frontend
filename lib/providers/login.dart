@@ -11,7 +11,7 @@ class Login {
       final token = await API.instance.autentica(credencial);
 
       final authProvider = GetIt.I<Auth>();
-      authProvider.setToken(token);
+      authProvider.onLogon(token);
     } catch (e) {
       if (e is DioException) {
         throw ErrorHandler.dioException(error: e);

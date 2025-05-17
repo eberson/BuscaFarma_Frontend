@@ -1,17 +1,11 @@
 import 'dart:developer';
 
-import 'package:buscafarma/backend/api.dart';
-import 'package:buscafarma/backend/dio.dart';
-import 'package:buscafarma/backend/error_handler.dart';
 import 'package:buscafarma/backend/request/credencial.dart';
-import 'package:buscafarma/backend/token_interceptor.dart';
 import 'package:buscafarma/get_it_setup.dart';
 import 'package:buscafarma/providers/auth.dart';
 import 'package:buscafarma/providers/login.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   setupGetIt();
@@ -44,7 +38,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _auth = GetIt.I<Auth>();
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _auth.addListener(_onAuthChanged);
+  }
+
+  @override
+  void dispose() {
+    _auth.removeListener(_onAuthChanged);
+    super.dispose();
+  }
+
+  _onAuthChanged() {
+    setState(() {});
+  }
 
   void _incrementCounter() {
     final auth = GetIt.I<Login>();
@@ -59,18 +70,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = GetIt.I<Auth>();
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: ValueListenableBuilder<String>(
-        valueListenable: auth.tokenNotifier,
-        builder:
-            (context, token, child) =>
-                Center(child: Column(children: [Text("Token: $token")])),
+      body: Center(
+        child: Column(
+          children: [
+            Text("Esta Autenticado: ${_auth.isLogado}"),
+            Text("Token: ${_auth.token}")
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,

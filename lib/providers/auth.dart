@@ -1,17 +1,18 @@
 import 'package:flutter/foundation.dart';
 
-class Auth {
-  final ValueNotifier<String> _tokenNotifier = ValueNotifier("");
+class Auth extends ChangeNotifier {
+  String _token = "";
 
-  void setToken(String token) {
-    _tokenNotifier.value = token;
+  void onLogon(String token) {
+    _token = token;
+    notifyListeners();
   }
 
-  void logout() {
-    _tokenNotifier.value = "";
+  void onLogout() {
+    _token = "";
+    notifyListeners();
   }
 
-  bool get isLogado => _tokenNotifier.value.isNotEmpty;
-  String get token => _tokenNotifier.value;
-  ValueNotifier<String> get tokenNotifier => _tokenNotifier;
+  bool get isLogado => _token.isNotEmpty;
+  String get token => _token;
 }
