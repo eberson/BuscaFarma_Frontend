@@ -1,3 +1,4 @@
+import 'package:buscafarma/backend/model/categoria.dart';
 import 'package:buscafarma/backend/request/credencial.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -11,6 +12,9 @@ abstract class API {
 
   @POST("/autenticar")
   Future<String> autentica(@Body() Credencial credencial);
+
+  @GET("/categoria/listar")
+  Future<List<Categoria>> listaCategorias();
 
   static API? _instance;
 

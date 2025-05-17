@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:buscafarma/backend/request/credencial.dart';
 import 'package:buscafarma/get_it_setup.dart';
-import 'package:buscafarma/providers/auth.dart';
-import 'package:buscafarma/providers/login.dart';
+import 'package:buscafarma/services/auth_service.dart';
+import 'package:buscafarma/services/login_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -38,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _auth = GetIt.I<Auth>();
+  final _auth = GetIt.I<AuthService>();
   int _counter = 0;
 
   @override
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter() {
-    final auth = GetIt.I<Login>();
+    final auth = GetIt.I<LoginService>();
     auth
         .autentica(Credencial(login: "45342868807", senha: "batata"))
         .catchError((e) => log("erro: ${e.message}"));
