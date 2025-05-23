@@ -13,11 +13,11 @@ class Medicamento {
   final int tipoMedicamento;
   final int unidadeMedida;
 
-  @JsonKey(
-    fromJson: _getCategoriaFromJson,
-    toJson: _toJsonCategoria,
-  )
-  final Categoria categoria;
+  @JsonKey(name: "categoriaId")
+  final String responseCategoriaId;
+
+  @JsonKey(name: "categoriaDescricao")
+  final String responseCategoriaDescricao;
 
   Medicamento(
     this.id,
@@ -27,7 +27,8 @@ class Medicamento {
     this.imagem,
     this.tipoMedicamento,
     this.unidadeMedida,
-    this.categoria,
+    this.responseCategoriaId,
+    this.responseCategoriaDescricao,
   );
 
   factory Medicamento.fromJson(Map<String, dynamic> json) =>
@@ -35,17 +36,6 @@ class Medicamento {
 
   Map<String, dynamic> toJson() => _$MedicamentoToJson(this);
 
-  static Categoria _getCategoriaFromJson(Map<String, dynamic> json) {
-    return Categoria(
-      json['categoriaId'] as String,
-      json['categoriaDescricao'] as String,
-    );
-  }
-
-  static Map<String, dynamic> _toJsonCategoria(Categoria categoria) {
-    return {
-      'categoriaId': categoria.id,
-      'categoriaDescricao': categoria.descricao,
-    };
-  }
+  Categoria get categoria =>
+      Categoria(responseCategoriaId, responseCategoriaDescricao);
 }

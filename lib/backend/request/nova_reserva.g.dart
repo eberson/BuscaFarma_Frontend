@@ -11,16 +11,24 @@ NovaReserva _$NovaReservaFromJson(Map<String, dynamic> json) => NovaReserva(
   medicamentoId: json['medicamentoId'] as String,
   data: DateTime.parse(json['dataReserva'] as String),
   imagemReceita: json['imagemReceita'] as String,
-  tipoAtendimento: (json['enumTipoAtendimento'] as num).toInt(),
-  status: (json['status'] as num).toInt(),
+  tipoAtendimento: $enumDecode(
+    _$TipoAtendimentoEnumMap,
+    json['enumTipoAtendimento'],
+  ),
 );
 
-Map<String, dynamic> _$NovaReservaToJson(NovaReserva instance) =>
-    <String, dynamic>{
-      'usuarioId': instance.usuarioId,
-      'medicamentoId': instance.medicamentoId,
-      'dataReserva': instance.data.toIso8601String(),
-      'imagemReceita': instance.imagemReceita,
-      'enumTipoAtendimento': instance.tipoAtendimento,
-      'status': instance.status,
-    };
+Map<String, dynamic> _$NovaReservaToJson(
+  NovaReserva instance,
+) => <String, dynamic>{
+  'usuarioId': instance.usuarioId,
+  'medicamentoId': instance.medicamentoId,
+  'dataReserva': instance.data.toIso8601String(),
+  'imagemReceita': instance.imagemReceita,
+  'enumTipoAtendimento': _$TipoAtendimentoEnumMap[instance.tipoAtendimento]!,
+};
+
+const _$TipoAtendimentoEnumMap = {
+  TipoAtendimento.Atendida: 1,
+  TipoAtendimento.NaoAtendida: 2,
+  TipoAtendimento.Cancelada: 3,
+};

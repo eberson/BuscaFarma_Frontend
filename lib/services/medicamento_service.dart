@@ -6,8 +6,8 @@ import 'package:flutter/foundation.dart';
 class MedicamentoService extends ChangeNotifier {
   List<Medicamento> _medicamentos = [];
 
-  Future<void> carregar() {
-    return makeCall(() async {
+  Future<void> carregar() async {
+    return await makeCall(() async {
       final medicamentos = await API.instance.listaMedicamentos();
       _medicamentos = medicamentos;
       notifyListeners();

@@ -1,4 +1,8 @@
+import 'package:buscafarma/backend/model/medicamento.dart';
 import 'package:buscafarma/backend/model/retirante.dart';
+import 'package:buscafarma/backend/model/status_reserva.dart';
+import 'package:buscafarma/backend/model/tipo_atendimento.dart';
+import 'package:buscafarma/backend/model/usuario.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'reserva.g.dart';
@@ -16,17 +20,18 @@ class Reserva {
   final String imagemReceita;
 
   @JsonKey(name: "enumTipoAtendimento")
-  final int tipoAtendimento;
+  final TipoAtendimento tipoAtendimento;
 
   final int? quantidade;
 
-  final int status;
+  final StatusReserva status;
 
-  @JsonKey(
-    fromJson: _fromJsonRetirante,
-    toJson: _toJsonRetirante,
-  )
-  final Retirante retirante;
+  final String? retiranteNome;
+  final String? retiranteCPF;
+
+  final Usuario usuario;
+
+  final Medicamento medicamento;
 
   Reserva(
     this.id,
@@ -34,28 +39,16 @@ class Reserva {
     this.imagemReceita,
     this.quantidade,
     this.retirada,
-    this.retirante,
+    this.retiranteCPF,
+    this.retiranteNome,
     this.status,
     this.tipoAtendimento,
+    this.usuario,
+    this.medicamento,
   );
 
   factory Reserva.fromJson(Map<String, dynamic> json) =>
       _$ReservaFromJson(json);
 
   Map<String, dynamic> toJson() => _$ReservaToJson(this);
-
-  // Conversão personalizada
-  static Retirante _fromJsonRetirante(Map<String, dynamic> json) {
-    return Retirante(
-      nome: json['retiranteNome'] as String,
-      cpf: json['retiranteCPF'] as String,
-    );
-  }
-
-  static Map<String, dynamic> _toJsonRetirante(Retirante retirante) {
-    return {
-      'retiranteNome': retirante.nome,
-      'retiranteCPF': retirante.cpf,
-    };
-  }
 }

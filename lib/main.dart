@@ -7,6 +7,7 @@ import 'package:buscafarma/services/auth_service.dart';
 import 'package:buscafarma/services/categoria_service.dart';
 import 'package:buscafarma/services/login_service.dart';
 import 'package:buscafarma/services/medicamento_service.dart';
+import 'package:buscafarma/services/reserva_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -45,15 +46,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final _categoriaService = GetIt.I<CategoriaService>();
   final _medicamentoService = GetIt.I<MedicamentoService>();
+  final _reservaService = GetIt.I<ReservaService>();
 
   int _counter = 0;
 
   @override
   void initState() {
     super.initState();
+
     _auth.addListener(_onServiceChanged);
     _categoriaService.addListener(_onServiceChanged);
     _medicamentoService.addListener(_onServiceChanged);
+    _reservaService.addListener(_onServiceChanged);
   }
 
   @override
@@ -61,6 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _auth.removeListener(_onServiceChanged);
     _categoriaService.removeListener(_onServiceChanged);
     _medicamentoService.removeListener(_onServiceChanged);
+    _reservaService.removeListener(_onServiceChanged);
+
     super.dispose();
   }
 
@@ -79,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (authService.isLogado) {
         log("calling /categoria/list");
-        GetIt.I<MedicamentoService>().carregar();
+        GetIt.I<ReservaService>().carregar();
       }
     });
 
@@ -92,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var categorias = _categoriaService.categorias;
     var medicamentos = _medicamentoService.medicamentos;
+    final reservas = _reservaService.reservas;
 
     return Scaffold(
       appBar: AppBar(
@@ -108,9 +115,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: ListView.builder(
                 itemBuilder:
                     (context, index) =>
-                        medicamentos.length > index
+                        reservas.length > index
                             ? Text(
-                              "${medicamentos[index].nomeComercial}: ${medicamentos[index].categoria.descricao}",
+                              "${reservas[index].usuario.nome}: ${reservas[index].medicamento.nomeComercial}",
                             )
                             : null,
               ),

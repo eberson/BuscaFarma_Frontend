@@ -1,3 +1,4 @@
+import 'package:buscafarma/backend/model/tipo_atendimento.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'nova_reserva.g.dart';
@@ -13,9 +14,7 @@ class NovaReserva {
   final String imagemReceita;
 
   @JsonKey(name: "enumTipoAtendimento")
-  final int tipoAtendimento;
-
-  final int status;
+  final TipoAtendimento tipoAtendimento;
 
   NovaReserva({
     required this.usuarioId,
@@ -23,7 +22,6 @@ class NovaReserva {
     required this.data,
     required this.imagemReceita,
     required this.tipoAtendimento,
-    required this.status,
   });
 
   factory NovaReserva.fromJson(Map<String, dynamic> json) =>
