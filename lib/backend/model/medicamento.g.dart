@@ -14,7 +14,7 @@ Medicamento _$MedicamentoFromJson(Map<String, dynamic> json) => Medicamento(
   json['imagem'] as String,
   (json['tipoMedicamento'] as num).toInt(),
   (json['unidadeMedida'] as num).toInt(),
-  json['categoriaId'] as String,
+  Medicamento._getCategoriaFromJson(json['categoria'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$MedicamentoToJson(Medicamento instance) =>
@@ -26,5 +26,5 @@ Map<String, dynamic> _$MedicamentoToJson(Medicamento instance) =>
       'imagem': instance.imagem,
       'tipoMedicamento': instance.tipoMedicamento,
       'unidadeMedida': instance.unidadeMedida,
-      'categoriaId': instance.categoriaId,
+      'categoria': Medicamento._toJsonCategoria(instance.categoria),
     };

@@ -6,6 +6,7 @@ import 'package:buscafarma/get_it_setup.dart';
 import 'package:buscafarma/services/auth_service.dart';
 import 'package:buscafarma/services/categoria_service.dart';
 import 'package:buscafarma/services/login_service.dart';
+import 'package:buscafarma/services/medicamento_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -41,7 +42,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _auth = GetIt.I<AuthService>();
+
   final _categoriaService = GetIt.I<CategoriaService>();
+  final _medicamentoService = GetIt.I<MedicamentoService>();
+
   int _counter = 0;
 
   @override
@@ -49,12 +53,14 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _auth.addListener(_onServiceChanged);
     _categoriaService.addListener(_onServiceChanged);
+    _medicamentoService.addListener(_onServiceChanged);
   }
 
   @override
   void dispose() {
     _auth.removeListener(_onServiceChanged);
     _categoriaService.removeListener(_onServiceChanged);
+    _medicamentoService.removeListener(_onServiceChanged);
     super.dispose();
   }
 
@@ -65,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _incrementCounter() async {
     final auth = GetIt.I<LoginService>();
     auth
-        .autentica(Credencial(login: "45342868807", senha: "batata"))
+        .autentica(Credencial(login: "123", senha: "123"))
         .catchError((e) => log("erro: ${e.message}"));
 
     Future.delayed(Duration(seconds: 5), () {
@@ -73,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (authService.isLogado) {
         log("calling /categoria/list");
-        GetIt.I<CategoriaService>().listaCategorias();
+        GetIt.I<MedicamentoService>().carregar();
       }
     });
 
@@ -85,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var categorias = _categoriaService.categorias;
+    var medicamentos = _medicamentoService.medicamentos;
 
     return Scaffold(
       appBar: AppBar(
@@ -96,15 +103,17 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Text("Esta Autenticado: ${_auth.isLogado}"),
             Text("Token: ${_auth.token}"),
-            SizedBox(
-              height: 15,
-            ),
+            SizedBox(height: 15),
             Expanded(
               child: ListView.builder(
-                  itemBuilder: (context, index) => categorias.length > index
-                      ? Text(
-                          "${categorias[index].id}: ${categorias[index].descricao}")
-                      : null),
+                itemBuilder:
+                    (context, index) =>
+                        medicamentos.length > index
+                            ? Text(
+                              "${medicamentos[index].nomeComercial}: ${medicamentos[index].categoria.descricao}",
+                            )
+                            : null,
+              ),
             ),
           ],
         ),

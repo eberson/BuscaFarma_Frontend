@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class CategoriaService extends ChangeNotifier {
   List<Categoria> _categorias = [];
 
-  Future<void> listaCategorias() async {
+  Future<void> carregar() async {
     try {
       final categorias = await API.instance.listaCategorias();
       _categorias = categorias;
