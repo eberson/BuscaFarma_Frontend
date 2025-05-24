@@ -1,5 +1,4 @@
 import 'package:buscafarma/backend/model/medicamento.dart';
-import 'package:buscafarma/backend/model/retirante.dart';
 import 'package:buscafarma/backend/model/status_reserva.dart';
 import 'package:buscafarma/backend/model/tipo_atendimento.dart';
 import 'package:buscafarma/backend/model/usuario.dart';
