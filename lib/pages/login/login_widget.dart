@@ -1,3 +1,6 @@
+import 'package:buscafarma/nav.dart';
+import 'package:buscafarma/pages/cadastro/novo_usuario_widget.dart';
+
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -323,8 +326,8 @@ class _LoginWidgetState extends State<LoginWidget>
                       ),
                     ),
                     FFButtonWidget(
-                      onPressed: () async {
-                        // context.pushNamed(CadastroWidget.routeName);
+                      onPressed: () {
+                        context.pushNamed(NovoUsuarioWidget.routeName);
                       },
                       text: 'ou clique aqui para se cadastrar',
                       options: FFButtonOptions(
