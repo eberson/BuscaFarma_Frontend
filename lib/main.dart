@@ -1,135 +1,67 @@
-import 'dart:developer';
 
-import 'package:buscafarma/backend/model/categoria.dart';
-import 'package:buscafarma/backend/request/credencial.dart';
 import 'package:buscafarma/get_it_setup.dart';
-import 'package:buscafarma/services/auth_service.dart';
-import 'package:buscafarma/services/categoria_service.dart';
-import 'package:buscafarma/services/login_service.dart';
-import 'package:buscafarma/services/medicamento_service.dart';
-import 'package:buscafarma/services/reserva_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'flutter_flow/flutter_flow_theme.dart';
 
-void main() {
+import 'nav.dart';
+import 'state.dart';
+
+void main() async {
   setupGetIt();
+  WidgetsFlutterBinding.ensureInitialized();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
+
+  await FlutterFlowTheme.initialize();
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+  State<MyApp> createState() => MyAppState();
+
+  static MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<MyAppState>()!;
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyAppState extends State<MyApp> {
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final _auth = GetIt.I<AuthService>();
-
-  final _categoriaService = GetIt.I<CategoriaService>();
-  final _medicamentoService = GetIt.I<MedicamentoService>();
-  final _reservaService = GetIt.I<ReservaService>();
-
-  int _counter = 0;
+  late AppStateNotifier _appStateNotifier;
+  late GoRouter _router;
 
   @override
   void initState() {
     super.initState();
 
-    _auth.addListener(_onServiceChanged);
-    _categoriaService.addListener(_onServiceChanged);
-    _medicamentoService.addListener(_onServiceChanged);
-    _reservaService.addListener(_onServiceChanged);
+    _appStateNotifier = AppStateNotifier.instance;
+    _router = createRouter(_appStateNotifier);
+
+    Future.delayed(
+      const Duration(milliseconds: 3000),
+      () => _appStateNotifier.stopShowingSplashImage(),
+    );
   }
 
   @override
   void dispose() {
-    _auth.removeListener(_onServiceChanged);
-    _categoriaService.removeListener(_onServiceChanged);
-    _medicamentoService.removeListener(_onServiceChanged);
-    _reservaService.removeListener(_onServiceChanged);
-
     super.dispose();
-  }
-
-  _onServiceChanged() {
-    setState(() {});
-  }
-
-  Future<void> _incrementCounter() async {
-    final auth = GetIt.I<LoginService>();
-    auth
-        .autentica(Credencial(login: "123", senha: "123"))
-        .catchError((e) => log("erro: ${e.message}"));
-
-    Future.delayed(Duration(seconds: 5), () {
-      final authService = GetIt.I<AuthService>();
-
-      if (authService.isLogado) {
-        log("calling /categoria/list");
-        GetIt.I<ReservaService>().carregar();
-      }
-    });
-
-    setState(() {
-      _counter++;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var categorias = _categoriaService.categorias;
-    var medicamentos = _medicamentoService.medicamentos;
-    final reservas = _reservaService.reservas;
-
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+    return MaterialApp.router(
+      title: 'BuscaFarma',
+      theme: ThemeData(
+        brightness: Brightness.light,
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Text("Esta Autenticado: ${_auth.isLogado}"),
-            Text("Token: ${_auth.token}"),
-            SizedBox(height: 15),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder:
-                    (context, index) =>
-                        reservas.length > index
-                            ? Text(
-                              "${reservas[index].usuario.nome}: ${reservas[index].medicamento.nomeComercial}",
-                            )
-                            : null,
-              ),
-            ),
-          ],
-        ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      themeMode: FlutterFlowTheme.themeMode,
+      routerConfig: _router,
     );
   }
 }

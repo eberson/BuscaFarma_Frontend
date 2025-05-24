@@ -12,8 +12,9 @@ Medicamento _$MedicamentoFromJson(Map<String, dynamic> json) => Medicamento(
   json['nomeQuimico'] as String,
   json['descricao'] as String,
   json['imagem'] as String,
-  (json['tipoMedicamento'] as num).toInt(),
+  $enumDecode(_$TipoMedicamentoEnumMap, json['tipoMedicamento']),
   (json['unidadeMedida'] as num).toInt(),
+  json['quantidade'] as String,
   json['categoriaId'] as String,
   json['categoriaDescricao'] as String,
 );
@@ -25,8 +26,14 @@ Map<String, dynamic> _$MedicamentoToJson(Medicamento instance) =>
       'nomeQuimico': instance.nomeQuimico,
       'descricao': instance.descricao,
       'imagem': instance.imagem,
-      'tipoMedicamento': instance.tipoMedicamento,
+      'tipoMedicamento': _$TipoMedicamentoEnumMap[instance.tipoMedicamento]!,
       'unidadeMedida': instance.unidadeMedida,
+      'quantidade': instance.quantidade,
       'categoriaId': instance.responseCategoriaId,
       'categoriaDescricao': instance.responseCategoriaDescricao,
     };
+
+const _$TipoMedicamentoEnumMap = {
+  TipoMedicamento.AltoCusto: 1,
+  TipoMedicamento.Comum: 2,
+};

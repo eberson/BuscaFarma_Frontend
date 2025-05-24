@@ -10,8 +10,9 @@ class Medicamento {
   final String nomeQuimico;
   final String descricao;
   final String imagem;
-  final int tipoMedicamento;
+  final TipoMedicamento tipoMedicamento;
   final int unidadeMedida;
+  final String quantidade;
 
   @JsonKey(name: "categoriaId")
   final String responseCategoriaId;
@@ -27,6 +28,7 @@ class Medicamento {
     this.imagem,
     this.tipoMedicamento,
     this.unidadeMedida,
+    this.quantidade,
     this.responseCategoriaId,
     this.responseCategoriaDescricao,
   );
@@ -38,4 +40,12 @@ class Medicamento {
 
   Categoria get categoria =>
       Categoria(responseCategoriaId, responseCategoriaDescricao);
+}
+
+enum TipoMedicamento {
+  @JsonValue(1)
+  AltoCusto,
+
+  @JsonValue(2)
+  Comum
 }
