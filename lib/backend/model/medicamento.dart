@@ -11,7 +11,6 @@ class Medicamento {
   final String descricao;
   final String imagem;
   final TipoMedicamento tipoMedicamento;
-  final int unidadeMedida;
   final String quantidade;
 
   @JsonKey(name: "categoriaId")
@@ -27,7 +26,6 @@ class Medicamento {
     this.descricao,
     this.imagem,
     this.tipoMedicamento,
-    this.unidadeMedida,
     this.quantidade,
     this.responseCategoriaId,
     this.responseCategoriaDescricao,

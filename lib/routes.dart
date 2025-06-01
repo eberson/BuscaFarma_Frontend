@@ -1,4 +1,5 @@
 import 'package:buscafarma/pages/cadastro/novo_usuario_widget.dart';
+import 'package:buscafarma/pages/contato/contato_widget.dart';
 import 'package:buscafarma/pages/home/home_widget.dart';
 import 'package:buscafarma/pages/login/login_widget.dart';
 import 'package:buscafarma/pages/search/search_widget.dart';
@@ -26,5 +27,10 @@ List<FFRoute> routes = [
     name: NovoUsuarioWidget.routeName,
     path: NovoUsuarioWidget.routePath,
     builder: (context, _) => const NovoUsuarioWidget(),
+  ),
+  FFRoute(
+    name: ContatoWidget.routeName,
+    path: ContatoWidget.routePath,
+    builder: (context, _) => const ContatoWidget(),
   ),
 ];

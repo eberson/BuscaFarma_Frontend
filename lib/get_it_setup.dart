@@ -3,6 +3,7 @@ import 'package:buscafarma/services/auth_service.dart';
 import 'package:buscafarma/services/categoria_service.dart';
 import 'package:buscafarma/services/login_service.dart';
 import 'package:buscafarma/services/medicamento_service.dart';
+import 'package:buscafarma/services/novo_usuario_service.dart';
 import 'package:buscafarma/services/reserva_service.dart';
 import 'package:buscafarma/services/search_service.dart';
 import 'package:dio/dio.dart';
@@ -17,6 +18,7 @@ void setupGetIt() {
   getIt.registerLazySingleton<MedicamentoService>(() => MedicamentoService());
   getIt.registerLazySingleton<ReservaService>(() => ReservaService());
   getIt.registerLazySingleton<SearchService>(() => SearchService());
+  getIt.registerLazySingleton<NovoUsuarioService>(() => NovoUsuarioService());
 
   getIt.registerLazySingleton<Dio>(() => buildDio());
 }

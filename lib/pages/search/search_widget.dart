@@ -85,13 +85,13 @@ class _SearchWidgetState extends State<SearchWidget> {
                       alignment: AlignmentDirectional(0, -1),
                       margin: const EdgeInsets.only(top: 12, bottom: 12),
                       child: Container(
-                        width: 134,
-                        height: 134,
+                        width: 180,
+                        height: 180,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).platinum,
                           image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: Image.asset('assets/images/cu.png').image,
+                            fit: BoxFit.fitHeight,
+                            image: Image.asset('assets/images/BuscaFarmalogo.png').image,
                           ),
                         ),
                       ),

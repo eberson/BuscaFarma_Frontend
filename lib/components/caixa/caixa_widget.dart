@@ -113,7 +113,10 @@ class _CaixaWidgetState extends State<CaixaWidget> {
                       child: Padding(
                         padding: EdgeInsets.all(8),
                         child: FFButtonWidget(
-                          onPressed: () => _model.searchForHigherCost(context),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _model.searchForHigherCost(context);
+                          },
                           text: 'ALTO CUSTO',
                           options: FFButtonOptions(
                             height: 30,
@@ -149,7 +152,10 @@ class _CaixaWidgetState extends State<CaixaWidget> {
                       child: Padding(
                         padding: EdgeInsets.all(8),
                         child: FFButtonWidget(
-                          onPressed: () => _model.searchForCommon(context),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            _model.searchForCommon(context);
+                          },
                           text: 'COMUNS',
                           options: FFButtonOptions(
                             width: 105,

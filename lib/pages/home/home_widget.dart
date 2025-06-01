@@ -85,13 +85,13 @@ class _HomeWidgetState extends State<HomeWidget> {
               alignment: AlignmentDirectional(0, -1),
               margin: const EdgeInsets.only(top: 12),
               child: Container(
-                width: 134,
-                height: 134,
+                width: 150,
+                height: 150,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).platinum,
                   image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: Image.asset('assets/images/cu.png').image,
+                    fit: BoxFit.fitWidth,
+                    image: Image.asset('assets/images/BuscaFarmalogo.png').image,
                   ),
                 ),
               ),
@@ -111,7 +111,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       Align(
                         alignment: AlignmentDirectional(0, -1),
                         child: Padding(
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                           child: Container(
                             width: 600,
                             margin: const EdgeInsets.only(bottom: 12),

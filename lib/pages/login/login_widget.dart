@@ -1,3 +1,4 @@
+import 'package:buscafarma/components/senha/alterar_senha_widget.dart';
 import 'package:buscafarma/nav.dart';
 import 'package:buscafarma/pages/cadastro/novo_usuario_widget.dart';
 
@@ -106,7 +107,8 @@ class _LoginWidgetState extends State<LoginWidget>
                     color: Color(0xFFE9E9E9),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: Image.asset('assets/images/cu.png').image,
+                      image:
+                          Image.asset('assets/images/BuscaFarmalogo.png').image,
                     ),
                   ),
                 ),
@@ -135,7 +137,7 @@ class _LoginWidgetState extends State<LoginWidget>
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                          child: Container(
+                          child: SizedBox(
                             width: double.infinity,
                             child: TextFormField(
                               controller: _model.cpfTextController,
@@ -200,7 +202,7 @@ class _LoginWidgetState extends State<LoginWidget>
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                          child: Container(
+                          child: SizedBox(
                             width: double.infinity,
                             child: TextFormField(
                               controller: _model.senhaTextController,
@@ -346,9 +348,57 @@ class _LoginWidgetState extends State<LoginWidget>
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.all(7),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            useSafeArea: true,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                },
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: AlterarSenhaWidget(),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
+                        text: 'esqueci minha senha',
+                        options: FFButtonOptions(
+                          height: 30,
+                          padding: EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
+                          iconPadding: EdgeInsetsDirectional.fromSTEB(
+                            0,
+                            0,
+                            0,
+                            0,
+                          ),
+                          color: FlutterFlowTheme.of(context).platinum,
+                          textStyle: GoogleFonts.interTight().copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontStyle: fft.titleSmall.fontStyle,
+                            color: Color(0xFF787878),
+                            fontSize: 11,
+                            letterSpacing: 0.0,
+                          ),
+                          elevation: 0,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
+
               Container(
                 width: 150,
                 height: 150,

@@ -109,19 +109,22 @@ class _NovoUsuarioWidgetState extends State<NovoUsuarioWidget>
                 Container(
                   alignment: AlignmentDirectional(0, -1),
                   child: Container(
-                    width: 134,
-                    height: 134,
+                    width: 150,
+                    height: 150,
                     decoration: BoxDecoration(
                       color: Color(0xFFE9E9E9),
                       image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: Image.asset('assets/images/cu.png').image,
+                        fit: BoxFit.fitWidth,
+                        image:
+                            Image.asset(
+                              'assets/images/BuscaFarmalogo.png',
+                            ).image,
                       ),
                     ),
                   ),
                 ),
                 Align(
-                  alignment: AlignmentDirectional(0, 25),
+                  alignment: AlignmentDirectional(0, 12),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(12, 0, 12, 15),
                     child: SingleChildScrollView(
@@ -215,6 +218,90 @@ class _NovoUsuarioWidgetState extends State<NovoUsuarioWidget>
                                     FlutterFlowTheme.of(context).primary,
                                 validator: _model.tXTnomeTextControllerValidator
                                     .asValidator(context),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                              0,
+                              0,
+                              0,
+                              16,
+                            ),
+                            child: Container(
+                              width: double.infinity,
+                              child: TextFormField(
+                                controller: _model.txtemailTextController,
+                                focusNode: _model.txtemailFocusNode,
+                                autofocus: true,
+                                autofillHints: [AutofillHints.email],
+                                textCapitalization: TextCapitalization.none,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelText: 'E-mail',
+                                  labelStyle: GoogleFonts.inter().copyWith(
+                                    fontWeight: fft.labelMedium.fontWeight,
+                                    fontStyle: fft.labelMedium.fontStyle,
+                                    letterSpacing: 0.0,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(
+                                            context,
+                                          ).alternate,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.of(context).error,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  filled: true,
+                                  fillColor: Color(0xFFA8A8A8),
+                                  contentPadding: EdgeInsets.all(24),
+                                ),
+                                style: GoogleFonts.inter().copyWith(
+                                  fontWeight: fft.labelSmall.fontWeight,
+                                  fontStyle: fft.labelSmall.fontStyle,
+                                  color: fft.info,
+                                  letterSpacing: 0,
+                                ),
+                                maxLength: 14,
+                                maxLengthEnforcement: MaxLengthEnforcement.none,
+                                buildCounter:
+                                    (
+                                      context, {
+                                      required currentLength,
+                                      required isFocused,
+                                      maxLength,
+                                    }) => null,
+                                keyboardType: TextInputType.number,
+                                cursorColor:
+                                    FlutterFlowTheme.of(context).primary,
+                                validator: _model
+                                    .txtemailTextControllerValidator
+                                    .asValidator(context),
+                                inputFormatters: [_model.txtemailMask],
                               ),
                             ),
                           ),
@@ -480,7 +567,7 @@ class _NovoUsuarioWidgetState extends State<NovoUsuarioWidget>
                                 focusNode: _model.txtconfirmarsFocusNode,
                                 autofocus: true,
                                 autofillHints: [AutofillHints.password],
-                                obscureText: false,
+                                obscureText: !_model.txtconfirmarsVisibility,
                                 decoration: InputDecoration(
                                   labelText: 'Confirme sua Senha',
                                   labelStyle: GoogleFonts.inter().copyWith(
@@ -523,6 +610,26 @@ class _NovoUsuarioWidgetState extends State<NovoUsuarioWidget>
                                   filled: true,
                                   fillColor: Color(0xFFA8A8A8),
                                   contentPadding: EdgeInsets.all(24),
+                                  suffixIcon: InkWell(
+                                    onTap:
+                                        () => safeSetState(
+                                          () =>
+                                              _model.txtconfirmarsVisibility =
+                                                  !_model
+                                                      .txtconfirmarsVisibility,
+                                        ),
+                                    focusNode: FocusNode(skipTraversal: true),
+                                    child: Icon(
+                                      _model.txtconfirmarsVisibility
+                                          ? Icons.visibility_outlined
+                                          : Icons.visibility_off_outlined,
+                                      color:
+                                          FlutterFlowTheme.of(
+                                            context,
+                                          ).secondaryText,
+                                      size: 24,
+                                    ),
+                                  ),
                                 ),
                                 style: GoogleFonts.inter().copyWith(
                                   fontWeight: fft.labelSmall.fontWeight,
@@ -557,9 +664,7 @@ class _NovoUsuarioWidgetState extends State<NovoUsuarioWidget>
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
+                            onPressed: () => _model.save(context),
                             text: 'Cadastrar',
                             options: FFButtonOptions(
                               width: 170,

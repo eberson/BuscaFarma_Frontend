@@ -1,4 +1,8 @@
-import '../caixa/caixa_widget.dart';
+import 'package:buscafarma/components/caixa/caixa_widget.dart';
+import 'package:buscafarma/nav.dart';
+import 'package:buscafarma/pages/contato/contato_widget.dart';
+import 'package:buscafarma/pages/home/home_widget.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +48,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
       width: 494.31,
       height: 80,
       decoration: BoxDecoration(
-        color: Color(0xA8249689),
+        color: FlutterFlowTheme.of(context).myrtleGreen,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0),
           bottomRight: Radius.circular(0),
@@ -58,6 +62,64 @@ class _NavBarWidgetState extends State<NavBarWidget> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    GoRouter.of(context).goNamed(HomeWidget.routeName);
+                  },
+                  child: Icon(
+                    Icons.home_rounded,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    size: 30,
+                  ),
+                ),
+                Text(
+                  'MENU',
+                  style: GoogleFonts.inter().copyWith(
+                    fontWeight: fft.bodyMedium.fontWeight,
+                    fontStyle: fft.bodyMedium.fontStyle,
+                    color: fft.info,
+                    fontSize: 9,
+                    letterSpacing: 0.0
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed(ContatoWidget.routeName);
+                  },
+                  child: Icon(
+                    Icons.headset_mic_rounded,
+                    color: FlutterFlowTheme.of(context).info,
+                    size: 30,
+                  ),
+                ),
+                Text(
+                  'CONTATO',
+                  style: GoogleFonts.inter().copyWith(
+                    fontWeight: fft.bodyMedium.fontWeight,
+                    fontStyle: fft.bodyMedium.fontStyle,
+                    color: fft.info,
+                    fontSize: 9,
+                    letterSpacing: 0.0
+                  ),
+                ),
+              ],
+            ),
             Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -91,10 +153,10 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   style: GoogleFonts.inter(
                     fontWeight: fft.bodyMedium.fontWeight,
                     fontStyle: fft.bodyMedium.fontStyle,
-                    fontSize: 10,
+                    fontSize: 9,
                     color: fft.info,
                     letterSpacing: 0,
-                  ),
+                      ),
                 ),
               ],
             ),
@@ -120,10 +182,10 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   style: GoogleFonts.inter(
                     fontWeight: fft.bodyMedium.fontWeight,
                     fontStyle: fft.bodyMedium.fontStyle,
-                    fontSize: 10,
+                    fontSize: 9,
                     color: fft.info,
                     letterSpacing: 0,
-                  ),
+                      ),
                 ),
               ],
             ),
@@ -139,20 +201,20 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     // context.pushNamed(Tela5Widget.routeName);
                   },
                   child: Icon(
-                    Icons.headset_mic_rounded,
-                    color: FlutterFlowTheme.of(context).info,
+                    Icons.person,
+                    color: FlutterFlowTheme.of(context).primaryBackground,
                     size: 30,
                   ),
                 ),
                 Text(
-                  'FALE COM A GENTE',
+                  'PERFIL',
                   style: GoogleFonts.inter(
                     fontWeight: fft.bodyMedium.fontWeight,
                     fontStyle: fft.bodyMedium.fontStyle,
                     fontSize: 10,
                     color: fft.info,
                     letterSpacing: 0,
-                  ),
+                      ),
                 ),
               ],
             ),
