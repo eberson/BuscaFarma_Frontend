@@ -9,11 +9,12 @@ class Usuario {
   final String nome;
   final String cpf;
   final String telefone;
+  final String email;
 
   @JsonKey(name: "tipo")
   final Perfil? perfil;
 
-  Usuario(this.id, this.nome, this.cpf, this.telefone, this.perfil);
+  Usuario(this.id, this.nome, this.cpf, this.telefone, this.email, this.perfil);
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>
       _$UsuarioFromJson(json);

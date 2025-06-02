@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:buscafarma/backend/api.dart';
 import 'package:buscafarma/backend/error_handler.dart';
 import 'package:buscafarma/backend/request/credencial.dart';
+import 'package:buscafarma/backend/util/api_util.dart';
 import 'package:buscafarma/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -19,5 +22,14 @@ class LoginService {
 
       throw ErrorHandler.otherException();
     }
+  }
+
+  Future<void> getCurrentUserInfo() async {
+    await makeCall(() async {
+      final authProvider = GetIt.I<AuthService>();
+
+      final usuario = await API.instance.me(authProvider.userId);
+      authProvider.onUserInfoLoaded(usuario);
+    });
   }
 }

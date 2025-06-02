@@ -2,6 +2,7 @@ import 'package:buscafarma/backend/model/categoria.dart';
 import 'package:buscafarma/backend/model/medicamento.dart';
 import 'package:buscafarma/backend/model/novo_usuario.dart';
 import 'package:buscafarma/backend/model/reserva.dart';
+import 'package:buscafarma/backend/model/usuario.dart';
 import 'package:buscafarma/backend/request/credencial.dart';
 import 'package:buscafarma/backend/request/mudar_senha.dart';
 import 'package:buscafarma/backend/request/nova_reserva.dart';
@@ -29,6 +30,9 @@ abstract class API {
 
   @PUT("/alterar-senha")
   Future<Message> alterarSenha(@Body() MudarSenha request);
+
+  @GET("/usuario/id/{id}")
+  Future<Usuario> me(@Path() String id);
 
   @GET("/categoria/listar")
   Future<List<Categoria>> listaCategorias();

@@ -11,6 +11,7 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) => Usuario(
   json['nome'] as String,
   json['cpf'] as String,
   json['telefone'] as String,
+  json['email'] as String,
   $enumDecodeNullable(_$PerfilEnumMap, json['tipo']),
 );
 
@@ -19,6 +20,7 @@ Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
   'nome': instance.nome,
   'cpf': instance.cpf,
   'telefone': instance.telefone,
+  'email': instance.email,
   'tipo': _$PerfilEnumMap[instance.perfil],
 };
 

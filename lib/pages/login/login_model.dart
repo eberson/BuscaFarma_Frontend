@@ -39,15 +39,21 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
 
   Future<void> login(BuildContext context) async {
     try {
-      await GetIt.I<LoginService>().autentica(
+      final loginService = GetIt.I<LoginService>();
+
+      await loginService.autentica(
         Credencial(
           login: cpfTextController.text,
           senha: senhaTextController.text,
         ),
       );
+      
+      if (GetIt.I<AuthService>().isLogado) {
+        await loginService.getCurrentUserInfo();
 
-      if (GetIt.I<AuthService>().isLogado && context.mounted) {
-        context.pushNamed(HomeWidget.routeName);
+        if (context.mounted) {
+          context.pushNamed(HomeWidget.routeName);
+        }
       }
     } on ErrorHandler catch (e) {
       if (context.mounted) {
@@ -60,16 +66,9 @@ class LoginModel extends FlutterFlowModel<LoginWidget> {
 
   Future<void> esqueciMinhaSenha(BuildContext context) async {
     try {
-      await GetIt.I<LoginService>().autentica(
-        Credencial(
-          login: cpfTextController.text,
-          senha: senhaTextController.text,
-        ),
-      );
+      
 
-      if (GetIt.I<AuthService>().isLogado && context.mounted) {
-        context.pushNamed(HomeWidget.routeName);
-      }
+      
     } on ErrorHandler catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

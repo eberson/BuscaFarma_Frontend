@@ -2,6 +2,8 @@ import 'package:buscafarma/components/caixa/caixa_widget.dart';
 import 'package:buscafarma/nav.dart';
 import 'package:buscafarma/pages/contato/contato_widget.dart';
 import 'package:buscafarma/pages/home/home_widget.dart';
+import 'package:buscafarma/pages/perfil/perfil_widget.dart';
+import 'package:buscafarma/pages/sacola/sacola_widget.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -86,7 +88,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     fontStyle: fft.bodyMedium.fontStyle,
                     color: fft.info,
                     fontSize: 9,
-                    letterSpacing: 0.0
+                    letterSpacing: 0.0,
                   ),
                 ),
               ],
@@ -115,7 +117,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     fontStyle: fft.bodyMedium.fontStyle,
                     color: fft.info,
                     fontSize: 9,
-                    letterSpacing: 0.0
+                    letterSpacing: 0.0,
                   ),
                 ),
               ],
@@ -156,7 +158,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     fontSize: 9,
                     color: fft.info,
                     letterSpacing: 0,
-                      ),
+                  ),
                 ),
               ],
             ),
@@ -169,7 +171,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    // context.pushNamed(Tela4Widget.routeName);
+                    context.pushNamed(SacolaWidget.routeName);
                   },
                   child: Icon(
                     Icons.shopping_bag,
@@ -185,7 +187,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     fontSize: 9,
                     color: fft.info,
                     letterSpacing: 0,
-                      ),
+                  ),
                 ),
               ],
             ),
@@ -198,7 +200,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    // context.pushNamed(Tela5Widget.routeName);
+                    context.pushNamed(PerfilWidget.routeName);
                   },
                   child: Icon(
                     Icons.person,
@@ -214,7 +216,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     fontSize: 10,
                     color: fft.info,
                     letterSpacing: 0,
-                      ),
+                  ),
                 ),
               ],
             ),

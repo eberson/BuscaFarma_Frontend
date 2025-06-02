@@ -1,7 +1,9 @@
 import 'package:buscafarma/backend/model/medicamento.dart';
 import 'package:buscafarma/flutter_flow/flutter_flow_theme.dart';
 import 'package:buscafarma/flutter_flow/flutter_flow_widgets.dart';
+import 'package:buscafarma/services/sacola_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MedicamentoWidget extends StatelessWidget {
@@ -89,7 +91,7 @@ class MedicamentoWidget extends StatelessWidget {
           ),
           FFButtonWidget(
             onPressed: () {
-              print('Button pressed ...');
+              GetIt.I<SacolaService>().add(medicamento);
             },
             text: 'Adicionar',
             options: FFButtonOptions(
