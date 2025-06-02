@@ -1,4 +1,3 @@
-import 'package:buscafarma/backend/model/medicamento.dart';
 import 'package:buscafarma/components/aviso_widget.dart';
 import 'package:buscafarma/components/nav_bar/nav_bar_widget.dart';
 import 'package:buscafarma/components/sacola_item_widget.dart';

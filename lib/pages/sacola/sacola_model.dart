@@ -1,6 +1,5 @@
 import 'package:buscafarma/backend/error_handler.dart';
 import 'package:buscafarma/components/nav_bar/nav_bar_model.dart';
-import 'package:buscafarma/services/reserva_service.dart';
 import 'package:buscafarma/services/sacola_service.dart';
 import 'package:get_it/get_it.dart';
 

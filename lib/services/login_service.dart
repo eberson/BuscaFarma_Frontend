@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:buscafarma/backend/api.dart';
 import 'package:buscafarma/backend/error_handler.dart';
 import 'package:buscafarma/backend/request/credencial.dart';

@@ -1,9 +1,4 @@
-import 'dart:developer';
-
-import 'package:buscafarma/backend/api.dart';
-import 'package:buscafarma/backend/error_handler.dart';
 import 'package:buscafarma/backend/model/usuario.dart';
-import 'package:buscafarma/backend/util/api_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
