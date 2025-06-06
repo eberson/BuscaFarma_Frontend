@@ -24,7 +24,6 @@ class NovoUsuarioModel extends FlutterFlowModel<NovoUsuarioWidget> {
   // State field(s) for TXTEMAIL widget.
   FocusNode? txtemailFocusNode;
   TextEditingController? txtemailTextController;
-  final txtemailMask = MaskTextInputFormatter(mask: '###.###.###-##');
   String? Function(BuildContext, String?)? txtemailTextControllerValidator;
   // State field(s) for TXTELEFONE widget.
   FocusNode? txtelefoneFocusNode;

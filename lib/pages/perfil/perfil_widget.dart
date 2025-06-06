@@ -1,6 +1,7 @@
 import 'package:buscafarma/backend/model/usuario.dart';
 import 'package:buscafarma/components/nav_bar/nav_bar_widget.dart';
 import 'package:buscafarma/components/senha/alterar_senha_widget.dart';
+import 'package:buscafarma/components/senha/nova_senha_usuario_widget.dart';
 import 'package:buscafarma/nav.dart';
 import 'package:buscafarma/services/auth_service.dart';
 import 'package:get_it/get_it.dart';
@@ -257,7 +258,8 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                                                   0,
                                                 ),
                                                 child: Text(
-                                                  _usuario?.telefone ?? 'TELEFONE',
+                                                  _usuario?.telefone ??
+                                                      'TELEFONE',
                                                   textAlign: TextAlign.center,
                                                   style: GoogleFonts.interTight()
                                                       .copyWith(
@@ -306,7 +308,8 @@ class _PerfilWidgetState extends State<PerfilWidget> {
                                                         MediaQuery.viewInsetsOf(
                                                           context,
                                                         ),
-                                                    child: AlterarSenhaWidget(),
+                                                    child:
+                                                        NovaSenhaUsuarioWidget(),
                                                   ),
                                                 );
                                               },
