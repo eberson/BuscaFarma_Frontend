@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:buscafarma/components/aviso_widget.dart';
 import 'package:buscafarma/components/nav_bar/nav_bar_widget.dart';
 import 'package:buscafarma/components/sacola_item_widget.dart';
@@ -26,6 +28,10 @@ class SacolaWidget extends StatefulWidget {
 class _SacolaWidgetState extends State<SacolaWidget> {
   late SacolaModel _model;
 
+  File? _image;
+  
+  // final _picker = ImagePicker();
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _sacolaService = GetIt.I<SacolaService>();
 
@@ -52,6 +58,16 @@ class _SacolaWidgetState extends State<SacolaWidget> {
     setState(() {});
   }
 
+  // Future<void> takePhoto() async {
+  //   final photo = await _picker.pickImage(source: ImageSource.camera);
+
+  //   if (photo != null){
+  //     setState(() {
+  //       _image = File(photo.path);
+  //     });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     final fft = FlutterFlowTheme.of(context);
@@ -65,24 +81,24 @@ class _SacolaWidgetState extends State<SacolaWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFE9E9E9),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.only(top: 10, bottom: 10),
-              width: 190,
-              height: 160,
-              child: Image.asset(
-                'assets/images/BuscaFarmalogo.png',
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.only(top: 10, bottom: 10),
                 width: 190,
                 height: 160,
-                fit: BoxFit.fitHeight,
+                child: Image.asset(
+                  'assets/images/BuscaFarmalogo.png',
+                  width: 190,
+                  height: 160,
+                  fit: BoxFit.fitHeight,
+                ),
               ),
-            ),
-            Expanded(
-              child: Container(
+              Container(
                 width: double.maxFinite,
                 margin: const EdgeInsets.only(left: 10, right: 10),
                 decoration: BoxDecoration(
@@ -106,22 +122,21 @@ class _SacolaWidgetState extends State<SacolaWidget> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(12),
-                        width: double.maxFinite,
-                        margin: const EdgeInsets.only(bottom: 4),
-                        decoration: BoxDecoration(
-                          color: fft.lightBlue,
-                          borderRadius: BorderRadius.circular(10),
-                          shape: BoxShape.rectangle,
-                        ),
-                        child: ListView.builder(
-                          itemCount: medicamentos.length,
-                          itemBuilder:
-                              (context, index) =>
-                                  SacolaItemWidget(medicamentos[index]),
-                        ),
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      width: double.maxFinite,
+                      height: 250,
+                      margin: const EdgeInsets.only(bottom: 4),
+                      decoration: BoxDecoration(
+                        color: fft.lightBlue,
+                        borderRadius: BorderRadius.circular(10),
+                        shape: BoxShape.rectangle,
+                      ),
+                      child: ListView.builder(
+                        itemCount: medicamentos.length,
+                        itemBuilder:
+                            (context, index) =>
+                                SacolaItemWidget(medicamentos[index]),
                       ),
                     ),
                     Column(
@@ -286,13 +301,13 @@ class _SacolaWidgetState extends State<SacolaWidget> {
                   ],
                 ),
               ),
-            ),
-            wrapWithModel(
-              model: _model.navBarModel,
-              updateCallback: () => safeSetState(() {}),
-              child: NavBarWidget(),
-            ),
-          ],
+              wrapWithModel(
+                model: _model.navBarModel,
+                updateCallback: () => safeSetState(() {}),
+                child: NavBarWidget(),
+              ),
+            ],
+          ),
         ),
       ),
     );

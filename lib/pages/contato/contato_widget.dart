@@ -40,6 +40,9 @@ class _ContatoWidgetState extends State<ContatoWidget> {
   @override
   Widget build(BuildContext context) {
     final fft = FlutterFlowTheme.of(context);
+    final size = MediaQuery.of(context).size;
+
+    
 
     return GestureDetector(
       onTap: () {
@@ -107,25 +110,19 @@ class _ContatoWidgetState extends State<ContatoWidget> {
                                 ),
                               ),
                               Row(
-                                mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.all(8),
                                     child: Container(
-                                      width: 371,
+                                      width: size.width - 16,
                                       height: 253.8,
                                       decoration: BoxDecoration(
-                                        color:
-                                            FlutterFlowTheme.of(
-                                              context,
-                                            ).lightBlue,
+                                        color: fft.lightBlue,
                                         borderRadius: BorderRadius.circular(10),
                                         shape: BoxShape.rectangle,
                                         border: Border.all(
                                           color:
-                                              FlutterFlowTheme.of(
-                                                context,
-                                              ).myrtleGreen,
+                                              fft.myrtleGreen,
                                           width: 1,
                                         ),
                                       ),
@@ -138,7 +135,7 @@ class _ContatoWidgetState extends State<ContatoWidget> {
                                               Padding(
                                                 padding: EdgeInsets.all(8),
                                                 child: Container(
-                                                  width: 155.5,
+                                                  width: size.width - 40,
                                                   height: 34.23,
                                                   decoration: BoxDecoration(
                                                     color: Color(0x8CFFFFFF),
@@ -207,7 +204,7 @@ class _ContatoWidgetState extends State<ContatoWidget> {
                                               Padding(
                                                 padding: EdgeInsets.all(8),
                                                 child: Container(
-                                                  width: 155.5,
+                                                  width: size.width - 40,
                                                   height: 34.2,
                                                   decoration: BoxDecoration(
                                                     color: Color(0x8CFFFFFF),
@@ -277,7 +274,7 @@ class _ContatoWidgetState extends State<ContatoWidget> {
                                               Padding(
                                                 padding: EdgeInsets.all(8),
                                                 child: Container(
-                                                  width: 173.51,
+                                                  width: size.width - 40,
                                                   height: 87.7,
                                                   decoration: BoxDecoration(
                                                     color: Color(0x86F2F6F6),
