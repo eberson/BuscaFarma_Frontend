@@ -43,6 +43,9 @@ abstract class API {
   @GET("/reserva/listar")
   Future<List<Reserva>> listaReservas();
 
+  @GET("/reserva/usuario/{id}")
+  Future<List<Reserva>> listaReservasPorUsuario(@Path() String id);
+
   @POST("/usuario/adicionar")
   Future<Message> criaUsuario(@Body() NovoUsuario novoUsuario);
 

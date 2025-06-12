@@ -251,6 +251,36 @@ class _API implements API {
   }
 
   @override
+  Future<List<Reserva>> listaReservasPorUsuario(String id) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<List<Reserva>>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/reserva/usuario/${id}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<List<dynamic>>(_options);
+    late List<Reserva> _value;
+    try {
+      _value =
+          _result.data!
+              .map((dynamic i) => Reserva.fromJson(i as Map<String, dynamic>))
+              .toList();
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<Message> criaUsuario(NovoUsuario novoUsuario) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

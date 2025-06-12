@@ -4,6 +4,7 @@ import 'package:buscafarma/backend/model/medicamento.dart';
 import 'package:buscafarma/components/medicamento_widget.dart';
 import 'package:buscafarma/components/nav_bar/nav_bar_widget.dart';
 import 'package:buscafarma/components/remedio_widget.dart';
+import 'package:buscafarma/services/home_search_service.dart';
 import 'package:buscafarma/services/medicamento_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -30,7 +31,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Medicamento> _medicamentos = [];
+  final _homeSearchService = GetIt.I<HomeSearchService>();
 
   @override
   void initState() {
@@ -40,35 +41,25 @@ class _HomeWidgetState extends State<HomeWidget> {
     _model.pesquisaTextController ??= TextEditingController();
     _model.pesquisaFocusNode ??= FocusNode();
 
-    carregaMedicamentos();
+    _homeSearchService.addListener(_onChangeMedicamento);
+  }
+
+  void _onChangeMedicamento() {
+    setState(() {});
   }
 
   @override
   void dispose() {
     _model.dispose();
+    _homeSearchService.removeListener(_onChangeMedicamento);
 
     super.dispose();
-  }
-
-  Future<void> carregaMedicamentos() async {
-    try {
-      final service = GetIt.I<MedicamentoService>();
-
-      if (service.medicamentos.isEmpty) {
-          await GetIt.I<MedicamentoService>().carregar();
-      }
-
-      setState(() {
-        _medicamentos = service.medicamentos;
-      });
-    } catch(e) {
-      log("ocorreu um erro: $e");
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final fft = FlutterFlowTheme.of(context);
+    final medicamentos = _homeSearchService.filtrados;
 
     return GestureDetector(
       onTap: () {
@@ -242,8 +233,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: _medicamentos.length,
-                    itemBuilder: (context, index) => MedicamentoWidget(_medicamentos[index]),
+                    itemCount: medicamentos.length,
+                    itemBuilder: (context, index) => MedicamentoWidget(medicamentos[index]),
                   ),
                 ),
                 wrapWithModel(

@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:developer';
+
 
 import 'package:buscafarma/backend/api.dart';
 import 'package:buscafarma/backend/error_handler.dart';
@@ -10,8 +12,11 @@ import 'package:buscafarma/services/auth_service.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
 
+import 'package:image/image.dart' as img;
+
 class SacolaService extends ChangeNotifier {
   final List<Medicamento> _medicamentos = [];
+  img.Image? _prescription = null;
 
   void add(Medicamento medicamento) {
     if (_medicamentos.any((m) => m.id == medicamento.id)) {
@@ -27,6 +32,10 @@ class SacolaService extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setPrescription(img.Image? file) {
+    _prescription = file;
+  }
+
   void clear() {
     _medicamentos.clear();
     notifyListeners();
@@ -36,6 +45,13 @@ class SacolaService extends ChangeNotifier {
     final authService = GetIt.I<AuthService>();
     final userId = authService.userId;
 
+    var prescriptionContent = "nao informado";
+
+    if (_prescription != null) {
+      final bytes = img.encodeJpg(_prescription!, quality: 70);
+      prescriptionContent = base64Encode(bytes);
+    }
+
     while (_medicamentos.isNotEmpty) {
       final medicamento = _medicamentos[0];
 
@@ -43,7 +59,7 @@ class SacolaService extends ChangeNotifier {
         usuarioId: userId,
         medicamentoId: medicamento.id,
         data: DateTime.now(),
-        imagemReceita: "imagemReceita",
+        imagemReceita: prescriptionContent,
         tipoAtendimento: TipoAtendimento.NaoAtendida,
       );
 

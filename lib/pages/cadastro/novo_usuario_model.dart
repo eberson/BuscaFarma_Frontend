@@ -106,6 +106,12 @@ class NovoUsuarioModel extends FlutterFlowModel<NovoUsuarioWidget> {
             SnackBar(content: Text("Ocorreu um erro: ${e.message}")),
           );
         }
+      } on Exception catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Ocorreu um erro: ${e.toString()}")),
+          );
+        }
       }
     }
 

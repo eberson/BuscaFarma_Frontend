@@ -5,12 +5,15 @@ import 'package:buscafarma/components/nav_bar/nav_bar_widget.dart';
 import 'package:buscafarma/components/sacola_item_widget.dart';
 import 'package:buscafarma/services/sacola_service.dart';
 import 'package:get_it/get_it.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:image/image.dart' as img;
 
 import 'sacola_model.dart';
 export 'sacola_model.dart';
@@ -28,9 +31,7 @@ class SacolaWidget extends StatefulWidget {
 class _SacolaWidgetState extends State<SacolaWidget> {
   late SacolaModel _model;
 
-  File? _image;
-  
-  // final _picker = ImagePicker();
+  final _picker = ImagePicker();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _sacolaService = GetIt.I<SacolaService>();
@@ -58,15 +59,19 @@ class _SacolaWidgetState extends State<SacolaWidget> {
     setState(() {});
   }
 
-  // Future<void> takePhoto() async {
-  //   final photo = await _picker.pickImage(source: ImageSource.camera);
+  Future<void> takePhoto() async {
+    final photo = await _picker.pickImage(
+      source: ImageSource.camera,
+      imageQuality: 50,
+    );
 
-  //   if (photo != null){
-  //     setState(() {
-  //       _image = File(photo.path);
-  //     });
-  //   }
-  // }
+    if (photo != null) {
+      final bytes = await photo.readAsBytes();
+      final image = img.decodeImage(bytes);
+
+      GetIt.I<SacolaService>().setPrescription(image);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,8 +194,8 @@ class _SacolaWidgetState extends State<SacolaWidget> {
                                             ).primaryText,
                                         size: 24,
                                       ),
-                                      onPressed: () {
-                                        print('IconButton pressed ...');
+                                      onPressed: () async {
+                                        await takePhoto();
                                       },
                                     ),
                                   ),
