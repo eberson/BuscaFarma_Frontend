@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-
 import 'package:buscafarma/backend/api.dart';
 import 'package:buscafarma/backend/error_handler.dart';
 import 'package:buscafarma/backend/model/medicamento.dart';
@@ -52,13 +51,17 @@ class SacolaService extends ChangeNotifier {
       prescriptionContent = base64Encode(bytes);
     }
 
+    var now = DateTime.now();
+    var retirada = now.add(Duration(days: 10));
+
     while (_medicamentos.isNotEmpty) {
       final medicamento = _medicamentos[0];
 
       final novaReserva = NovaReserva(
         usuarioId: userId,
         medicamentoId: medicamento.id,
-        data: DateTime.now(),
+        data: now,
+        retirada: retirada,
         imagemReceita: prescriptionContent,
         tipoAtendimento: TipoAtendimento.NaoAtendida,
       );
@@ -69,8 +72,10 @@ class SacolaService extends ChangeNotifier {
         });
 
         remove(medicamento);
-      } on ErrorHandler catch(e) {
-        log("erro ao realizar a reserva do medicamento ${medicamento.nomeQuimico}: $e");
+      } on ErrorHandler catch (e) {
+        log(
+          "erro ao realizar a reserva do medicamento ${medicamento.nomeQuimico}: $e",
+        );
       }
     }
   }

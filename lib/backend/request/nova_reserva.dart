@@ -11,6 +11,9 @@ class NovaReserva {
   @JsonKey(name: "dataReserva")
   final DateTime data;
 
+  @JsonKey(name: "dataRetirada")
+  final DateTime retirada;
+
   final String imagemReceita;
 
   @JsonKey(name: "enumTipoAtendimento")
@@ -20,6 +23,7 @@ class NovaReserva {
     required this.usuarioId,
     required this.medicamentoId,
     required this.data,
+    required this.retirada,
     required this.imagemReceita,
     required this.tipoAtendimento,
   });

@@ -10,6 +10,7 @@ NovaReserva _$NovaReservaFromJson(Map<String, dynamic> json) => NovaReserva(
   usuarioId: json['usuarioId'] as String,
   medicamentoId: json['medicamentoId'] as String,
   data: DateTime.parse(json['dataReserva'] as String),
+  retirada: DateTime.parse(json['dataRetirada'] as String),
   imagemReceita: json['imagemReceita'] as String,
   tipoAtendimento: $enumDecode(
     _$TipoAtendimentoEnumMap,
@@ -23,6 +24,7 @@ Map<String, dynamic> _$NovaReservaToJson(
   'usuarioId': instance.usuarioId,
   'medicamentoId': instance.medicamentoId,
   'dataReserva': instance.data.toIso8601String(),
+  'dataRetirada': instance.retirada.toIso8601String(),
   'imagemReceita': instance.imagemReceita,
   'enumTipoAtendimento': _$TipoAtendimentoEnumMap[instance.tipoAtendimento]!,
 };

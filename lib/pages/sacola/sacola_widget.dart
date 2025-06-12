@@ -60,16 +60,24 @@ class _SacolaWidgetState extends State<SacolaWidget> {
   }
 
   Future<void> takePhoto() async {
-    final photo = await _picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 50,
-    );
+    try {
+      final photo = await _picker.pickImage(
+        source: ImageSource.camera,
+        imageQuality: 50,
+      );
 
-    if (photo != null) {
-      final bytes = await photo.readAsBytes();
-      final image = img.decodeImage(bytes);
+      if (photo != null) {
+        final bytes = await photo.readAsBytes();
+        final image = img.decodeImage(bytes);
 
-      GetIt.I<SacolaService>().setPrescription(image);
+        GetIt.I<SacolaService>().setPrescription(image);
+      }
+    } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Ocorreu um erro: ${e.toString()}")),
+        );
+      }
     }
   }
 
